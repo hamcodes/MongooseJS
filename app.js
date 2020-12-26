@@ -1,51 +1,38 @@
-const MongoClient = require('mongodb').MongoClient;
-const assert = require('assert');
+const mongoose = require('mongoose');
 
-const url = 'mongodb://localhost:27017';
+mongoose.connect("mongodb://localhost:27017/fruitsDB", { useNewUrlParser: true});
 
-const dbName = 'fruitsDB';
-
-const client = new MongoClient(url);
-
-client.connect(function(err) {
-  assert.strictEqual(null, err);
-  console.log("Connected successfully to server");
-
-  const db  = client.db(dbName);
-
-  findDocuments(db, function() {
-    client.close();
-  });
+const fruitSchema = new mongoose.Schema ({
+  name: String,
+  rating: Number,
+  review: String
 });
 
-const insertDocuments = function(db, callback) {
+const Fruit = mongoose.model("Fruit", fruitSchema);
 
-  const collection = db.collection('fruits');
+const fruit = new Fruit ({
+  name: "Apple",
+  rating: 7,
+  review: "Pretty solid as a fruit."
+});
 
-  collection.insertMany([
-    {
-      name: "Apple",
-      score: 8,
-      review: "Great fruit"
-    },
-    {
-      name: "Orange",
-      score: 6,
-      review: "Sour"
-    },
-    {
-      name: "Banana",
-      score: 9,
-      review: "Great stuff!"
-    }
-  ], function(err, result) {
-    assert.equal(err, null);
-    assert.equal(3, result.result.n);
-    assert.equal(3, result.ops.length);
-    console.log("Inserted 3 documents into the collection");
-    callback(result); 
-  });
-};
+// fruit.save();
+
+const personSchema = new mongoose.Schema ({
+  name: String,
+  age: Number
+});
+
+const Person = mongoose.model("Person", personSchema);
+
+const person = new Person ({
+  name: "John",
+  age: 37
+});
+
+person.save();
+
+
 
 const findDocuments = function(db, callback) {
   const collection = db.collection('fruits');
