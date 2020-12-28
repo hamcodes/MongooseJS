@@ -96,10 +96,18 @@ const findDocuments = function(db, callback) {
 //   }
 // });
 
-Fruit.deleteOne({_id: "5fe9f41afbd0c30596a1f6d1"}, function(err){
-  if (err){
+// Fruit.deleteOne({_id: "5fe9f41afbd0c30596a1f6d1"}, function(err){
+//   if (err){
+//     console.log(err);
+//   } else {
+//     console.log("Deleted it!");
+//   }
+// });
+
+Person.deleteMany({name: "John"}, function(err){
+  if(err){
     console.log(err);
   } else {
-    console.log("Deleted it!");
+    console.log("All people deleted");
   }
 });
