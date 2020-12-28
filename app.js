@@ -18,12 +18,11 @@ const fruitSchema = new mongoose.Schema ({
 const Fruit = mongoose.model("Fruit", fruitSchema);
 
 const fruit = new Fruit ({
-  name: "Apple",
-  rating: 34,
+  rating: 8,
   review: "Pretty solid as a fruit."
 });
 
-fruit.save();
+// fruit.save();
 
 const personSchema = new mongoose.Schema ({
   name: String,
@@ -88,3 +87,19 @@ const findDocuments = function(db, callback) {
     callback(fruits);
   });
 }
+
+// Fruit.updateOne({_id: "5fe9f41afbd0c30596a1f6d1"}, {name: "Peach"}, function(err){
+//   if (err){
+//     console.log(err);
+//   } else {
+//     console.log("Successfully updated the document");
+//   }
+// });
+
+Fruit.deleteOne({_id: "5fe9f41afbd0c30596a1f6d1"}, function(err){
+  if (err){
+    console.log(err);
+  } else {
+    console.log("Deleted it!");
+  }
+});
